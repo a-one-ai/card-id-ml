@@ -32,7 +32,7 @@ def get_card_vertices(img):
 
     mask = results[0].masks.data[0]
     # Convert to binary for segmentation
-    binary_mask = (mask.cpu().numpy() > 0.5).astype(np.uint8) * 255
+    binary_mask = (mask.numpy() > 0.5).astype(np.uint8) * 255
 
     # Resize the binary mask to match the original image dimensions
     binary_mask = cv2.resize(binary_mask, (img.shape[1], img.shape[0]))
