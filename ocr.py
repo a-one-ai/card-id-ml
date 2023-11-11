@@ -45,8 +45,8 @@ def read_text_front(img):
     """
     
     masks = {
-        "Name": img[110:250, 260:],
-        "Address": img[250:380, 260:]
+        "name": img[110:250, 260:],
+        "address": img[250:380, 260:]
         # ,"ID": img[380:500, 335:]
     }
 
@@ -73,10 +73,10 @@ def read_text_back(img):
     img = cv2.resize(img, (1080, 640))
 
     masks = {
-        "Job": img[75:190, 400:],
-        "Gender": img[170:260, 790:900],
-        "Religion": img[175:260, 550:790],
-        "Status":img[175:260, 350:550]
+        "job": img[75:190, 400:],
+        "gender": img[170:260, 790:900],
+        "religion": img[175:260, 550:790],
+        "status":img[175:260, 350:550]
     }
 
     Data ={}
@@ -145,7 +145,7 @@ def read_id_front(img):
     gender_number = int(result_string[12])
     gender = "ذكر" if gender_number % 2 != 0 else "أنثي"
 
-    return  { "national_id":result ," birthday": birthday, " governorate": governorate, "gender": gender }
+    return  { "national_id":result ,"birthday": birthday, "governorate": governorate, "gender": gender }
 def read_id_back(img):
     """
     This function take back card image and get national number on the card.
@@ -299,7 +299,7 @@ def process_ocr_back(back_img):
 
     card_img = crop_card_back(back_img)
     Data = read_text_back(card_img)
-    Data["Id"] = read_id_back(card_img)
+    Data["national_id"] = read_id_back(card_img)
     
     return Data
 
