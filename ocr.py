@@ -164,7 +164,7 @@ def read_id_back(img):
     ocr_back_model.conf = 0.25  # Adjust this line according to the actual API
 
     # Convert cropped image to color (YOLO typically requires three channels)
-    cv2.imshow("",cropped)
+    # cv2.imshow("",cropped)
     
     # Run inference on the cropped image
     results = ocr_back_model(cropped)
