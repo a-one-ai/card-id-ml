@@ -48,9 +48,9 @@ def read_text_front(img):
     """
     
     masks = {
-        "name": img[110:250, 260:],
-        "address": img[250:380, 260:]
-        
+        "Name": img[110:250, 260:],
+        "Address": img[250:380, 260:]
+        # ,"ID": img[380:500, 335:]
     }
 
     Data ={}
@@ -147,8 +147,8 @@ def read_id_front(img):
     # Extracting gender (odd for male, even for female)
     gender_number = int(result_string[12])
     gender = "ذكر" if gender_number % 2 != 0 else "أنثي"
-    
-    return  { "national_id":result ,"birthday": birthday, "governorate": governorate, "gender": gender }
+
+    return  { "national_id":result ," birthday": birthday, " governorate": governorate, "gender": gender }
 def read_id_back(img):
     """
     This function take back card image and get national number on the card.
@@ -165,6 +165,10 @@ def read_id_back(img):
     cropped = img[0:70, 375:680]
     # Set the confidence threshold for the model to 0.25
     ocr_back_model.conf = 0.25  # Adjust this line according to the actual API
+
+    # Convert cropped image to color (YOLO typically requires three channels)
+    cv2.imshow("",cropped)
+    
     # Run inference on the cropped image
     results = ocr_back_model(cropped)
 
@@ -298,7 +302,8 @@ def process_ocr_back(back_img):
 
     card_img = crop_card_back(back_img)
     Data = read_text_back(card_img)
-    Data["national_id"] = read_id_back(card_img)
+    Data["Id"] = read_id_back(card_img)
+    
     return Data
 
 
