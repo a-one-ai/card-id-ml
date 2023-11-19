@@ -8,7 +8,7 @@ model = YOLO('yolov8s.pt')
 
 # Train the model using the 'coco128.yaml' dataset for 3 epochs with a specific image size
 # Adjust 'imgsz' to the desired image size for training
-results = model.train(data='/content/cropped-number-9/data.yaml', epochs=150, imgsz=416, device='cuda')
+results = model.train(data='/content/cropped-number-9/data.yaml', epochs=150, imgsz=416, device='cuda:0')
 
 # Evaluate the model's performance on your custom dataset
 # Replace 'your_dataset.yaml' with the path to your dataset configuration file
