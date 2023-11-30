@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 import os
 import cv2
 import numpy as np
+from logger_config import setup_logger
+import time
 
 app = Flask(__name__)
 # Define the folder where uploaded images will be stored
@@ -11,6 +13,20 @@ UPLOAD_FOLDER_PATH = "./uploaded_images"
 # Create the upload folder if it doesn't exist
 if not os.path.exists(UPLOAD_FOLDER_PATH):
     os.makedirs(UPLOAD_FOLDER_PATH)
+
+# Setup logger
+request_logger = setup_logger('request_logger', 'requests.log')
+
+@app.before_request
+def before_request_func():
+    request.start_time = time.time()
+
+@app.after_request
+def after_request_func(response):
+    duration = time.time() - request.start_time
+    request_logger.info(f"Request took {duration} seconds")
+    return response
+
 
 @app.route("/", methods=["GET"])
 def index():
